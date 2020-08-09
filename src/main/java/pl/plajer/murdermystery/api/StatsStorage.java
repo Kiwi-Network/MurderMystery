@@ -40,9 +40,9 @@ import org.jetbrains.annotations.NotNull;
 
 import pl.plajer.murdermystery.ConfigPreferences;
 import pl.plajer.murdermystery.Main;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 import pl.plajer.murdermystery.user.data.MysqlManager;
 import pl.plajer.murdermystery.utils.MessageUtils;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * @author Plajer

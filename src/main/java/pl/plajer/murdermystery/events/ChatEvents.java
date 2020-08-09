@@ -76,7 +76,7 @@ public class ChatEvents implements Listener {
           eventMessage = eventMessage.replaceAll(Pattern.quote(regexChar), "");
         }
       }
-      String message = formatChatPlaceholders(LanguageManager.getLanguageMessage("In-Game.Game-Chat-Format"), plugin.getUserManager().getUser(event.getPlayer()), eventMessage);
+      String message = formatChatPlaceholders(LanguageManager.getLanguageMessage("In-Game.Game-Chat-Format","chinese"), plugin.getUserManager().getUser(event.getPlayer()), eventMessage);
       if (!plugin.getConfigPreferences().getOption(ConfigPreferences.Option.DISABLE_SEPARATE_CHAT)) {
         event.setCancelled(true);
         boolean dead = !arena.getPlayersLeft().contains(event.getPlayer());

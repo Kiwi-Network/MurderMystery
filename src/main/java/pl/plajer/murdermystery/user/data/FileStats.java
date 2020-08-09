@@ -19,11 +19,10 @@
 package pl.plajer.murdermystery.user.data;
 
 import org.bukkit.configuration.file.FileConfiguration;
-
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.api.StatsStorage;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 import pl.plajer.murdermystery.user.User;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * @author Plajer

@@ -37,14 +37,13 @@ import org.golde.bukkit.corpsereborn.CorpseAPI.CorpseAPI;
 import org.golde.bukkit.corpsereborn.CorpseAPI.events.CorpseClickEvent;
 import org.golde.bukkit.corpsereborn.CorpseAPI.events.CorpseSpawnEvent;
 import org.golde.bukkit.corpsereborn.nms.Corpses;
-
 import pl.plajer.murdermystery.HookManager;
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.arena.corpse.Corpse;
 import pl.plajer.murdermystery.arena.corpse.Stand;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
 
 /**
  * @author Plajer
@@ -59,10 +58,10 @@ public class CorpseHandler implements Listener {
 
   public CorpseHandler(Main plugin) {
     this.plugin = plugin;
-    registerLastWord("murdermystery.lastwords.meme", ChatManager.colorMessage("In-Game.Messages.Last-Words.Meme"));
-    registerLastWord("murdermystery.lastwords.rage", ChatManager.colorMessage("In-Game.Messages.Last-Words.Rage"));
-    registerLastWord("murdermystery.lastwords.pro", ChatManager.colorMessage("In-Game.Messages.Last-Words.Pro"));
-    registerLastWord("default", ChatManager.colorMessage("In-Game.Messages.Last-Words.Default"));
+    registerLastWord("murdermystery.lastwords.meme", ChatManager.colorRawMessage("&f上帝确认了 &oDespacito 2"));
+    registerLastWord("murdermystery.lastwords.rage", ChatManager.colorRawMessage("&f啊这"));
+    registerLastWord("murdermystery.lastwords.pro", ChatManager.colorRawMessage("&f我卡了···"));
+    registerLastWord("default", ChatManager.colorRawMessage("&f我爱啦哇嘻!"));
     //run bit later than hook manager to ensure it's not null
     Bukkit.getScheduler().runTaskLater(plugin, () -> {
       if (plugin.getHookManager() != null && plugin.getHookManager().isFeatureEnabled(HookManager.HookFeature.CORPSES)) {

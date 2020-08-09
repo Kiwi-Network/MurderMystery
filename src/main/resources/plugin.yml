@@ -3,8 +3,8 @@ main: pl.plajer.murdermystery.Main
 authors: [Plajer, Tigerpanzer, montlikadani]
 version: ${project.version}
 api-version: 1.13
-depend: [HolographicDisplays]
-softdepend: [CorpseReborn, PlaceholderAPI, Parties, Spigot-Party-API-PAF, PartyAndFriends]
+depend: [HolographicDisplays, LLB]
+softdepend: [CorpseReborn, PlaceholderAPI]
 
 commands:
   MurderMystery:

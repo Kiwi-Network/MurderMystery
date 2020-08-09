@@ -29,9 +29,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import pl.plajer.murdermystery.handlers.ChatManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.item.ItemBuilder;
 
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
-import pl.plajerlair.commonsbox.minecraft.item.ItemBuilder;
+import java.util.HashMap;
 
 /**
  * @author Plajer
@@ -41,24 +43,35 @@ import pl.plajerlair.commonsbox.minecraft.item.ItemBuilder;
 @Deprecated //api subject to merge
 public class SpectatorSettingsMenu implements Listener {
 
+  private  HashMap<Player,Inventory> invs = new HashMap<>();
+
   private String inventoryName;
   private String speedOptionName;
-  private Inventory inv;
+
+  public String getInventoryName(Player player) {
+    return ChatManager.colorMessage_(inventoryName,player);
+  }
+
+  public String getSpeedOptionName(Player player) {
+    return ChatManager.colorMessage_(speedOptionName,player);
+  }
 
   public SpectatorSettingsMenu(JavaPlugin plugin, String inventoryName, String speedOptionName) {
     this.inventoryName = inventoryName;
     this.speedOptionName = speedOptionName;
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    initInventory();
   }
 
   public void openSpectatorSettingsMenu(Player player) {
-    player.openInventory(this.inv);
+    if(!this.invs.containsKey(player))
+      this.invs.put(player,initInventory(player));
+
+    player.openInventory(this.invs.get(player));
   }
 
   @EventHandler
   public void onSpectatorMenuClick(InventoryClickEvent e) {
-    if (e.getInventory() == null || !e.getView().getTitle().equals(color(inventoryName))) {
+    if (e.getInventory() == null || !e.getView().getTitle().equals(color(getInventoryName((Player) e.getWhoClicked())))) {
       return;
     }
     if (e.getCurrentItem() == null || !e.getCurrentItem().hasItemMeta()) {
@@ -89,8 +102,8 @@ public class SpectatorSettingsMenu implements Listener {
     }
   }
 
-  private void initInventory() {
-    Inventory inv = Bukkit.createInventory(null, 9 * 3, inventoryName);
+  private Inventory initInventory(Player player) {
+    Inventory inv = Bukkit.createInventory(null, 9 * 3, getInventoryName(player));
     inv.setItem(11, new ItemBuilder(Material.LEATHER_BOOTS)
       .name(color(speedOptionName + " I")).build());
     inv.setItem(12, new ItemBuilder(Material.CHAINMAIL_BOOTS)
@@ -101,7 +114,7 @@ public class SpectatorSettingsMenu implements Listener {
       .name(color(speedOptionName + " IV")).build());
     inv.setItem(15, new ItemBuilder(Material.DIAMOND_BOOTS)
       .name(color(speedOptionName + " V")).build());
-    this.inv = inv;
+    return inv;
   }
 
   private String color(String message) {

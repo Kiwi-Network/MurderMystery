@@ -21,11 +21,10 @@ package pl.plajer.murdermystery.handlers.party;
 
 import java.util.stream.Collectors;
 
+import de.simonsator.partyandfriends.spigot.api.party.PartyManager;
+import de.simonsator.partyandfriends.spigot.api.party.PlayerParty;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import de.simonsator.partyandfriends.api.party.PartyManager;
-import de.simonsator.partyandfriends.api.party.PlayerParty;
 
 /**
  * @author Plajer
@@ -34,6 +33,7 @@ import de.simonsator.partyandfriends.api.party.PlayerParty;
  */
 public class PAFSPartyHandlerImpl implements PartyHandler {
 
+  /*
   @Override
   public boolean isPlayerInParty(Player player) {
     return PartyManager.getInstance().getParty(player.getUniqueId()) != null;
@@ -49,6 +49,27 @@ public class PAFSPartyHandlerImpl implements PartyHandler {
   @Override
   public boolean partiesSupported() {
     return true;
+  }
+
+  @Override
+  public PartyPluginType getPartyPluginType() {
+    return PartyPluginType.PAFSpigot;
+
+  }*/
+
+  @Override
+  public boolean isPlayerInParty(Player player) {
+    return false;
+  }
+
+  @Override
+  public GameParty getParty(Player player) {
+    return null;
+  }
+
+  @Override
+  public boolean partiesSupported() {
+    return false;
   }
 
   @Override

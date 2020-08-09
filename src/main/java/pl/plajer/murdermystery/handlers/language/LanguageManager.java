@@ -23,23 +23,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import org.bukkit.entity.Player;
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.handlers.ChatManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 import pl.plajer.murdermystery.utils.services.ServiceRegistry;
 import pl.plajer.murdermystery.utils.services.locale.Locale;
 import pl.plajer.murdermystery.utils.services.locale.LocaleRegistry;
 import pl.plajer.murdermystery.utils.services.locale.LocaleService;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * @author Plajer
@@ -147,7 +145,14 @@ public class LanguageManager {
     return pluginLocale.getName().equals("English");
   }
 
-  public static String getLanguageMessage(String path) {
+  public static String getLanguageMessage(String path, String lang) {
+    return ChatManager.colorRawMessage(Main.lang.getString(lang,path));
+  }
+
+    public static String getLanguageMessage(String path, Player player) {
+      return ChatManager.colorRawMessage(Main.lang.getPlayerString(player.getName(),path));
+
+    /*
     if (isDefaultLanguageUsed()) {
       return getString(path);
     }
@@ -155,10 +160,16 @@ public class LanguageManager {
     if (prop == null) {
       return getString(path);
     }
-    return prop;
+    return prop;*/
+  }
+  public static List<String> getLanguageList(String path, String lang) {
+    return Arrays.asList(getLanguageMessage(path, lang).split(";"));
   }
 
-  public static List<String> getLanguageList(String path) {
+  public static List<String> getLanguageList(String path, Player player) {
+    return Arrays.asList(getLanguageMessage(path,player).split(";"));
+
+    /*
     if (isDefaultLanguageUsed()) {
       return getStrings(path);
     }
@@ -167,7 +178,7 @@ public class LanguageManager {
       //check normal language if nothing found in specific language
       return getStrings(path);
     }
-    return Arrays.asList(ChatManager.colorRawMessage(prop).split(";"));
+    return Arrays.asList(ChatManager.colorRawMessage(prop).split(";"));*/
   }
 
 

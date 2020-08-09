@@ -31,7 +31,9 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import org.bukkit.entity.Player;
 import pl.plajer.murdermystery.ConfigPreferences;
+import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.api.StatsStorage;
 import pl.plajer.murdermystery.commands.arguments.ArgumentsRegistry;
 import pl.plajer.murdermystery.commands.arguments.data.CommandArgument;
@@ -62,18 +64,18 @@ public class LeaderboardArgument {
       @Override
       public void execute(CommandSender sender, String[] args) {
         if (args.length == 1) {
-          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.Statistics.Type-Name"));
+          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.Statistics.Type-Name",(Player)sender));
           return;
         }
         try {
           StatsStorage.StatisticType statisticType = StatsStorage.StatisticType.valueOf(args[1].toUpperCase());
           if (!statisticType.isPersistent()) {
-            sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.Statistics.Invalid-Name"));
+            sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.Statistics.Invalid-Name",(Player)sender));
             return;
           }
           printLeaderboard(sender, statisticType);
         } catch (IllegalArgumentException e) {
-          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.Statistics.Invalid-Name"));
+          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.Statistics.Invalid-Name",(Player)sender));
         }
       }
     });
@@ -81,7 +83,7 @@ public class LeaderboardArgument {
 
   private void printLeaderboard(CommandSender sender, StatsStorage.StatisticType statisticType) {
     LinkedHashMap<UUID, Integer> stats = (LinkedHashMap<UUID, Integer>) StatsStorage.getStats(statisticType);
-    sender.sendMessage(ChatManager.colorMessage("Commands.Statistics.Header"));
+    sender.sendMessage(ChatManager.colorMessage_("Commands.Statistics.Header",(Player)sender));
     String statistic = StringUtils.capitalize(statisticType.toString().toLowerCase().replace("_", " "));
     for (int i = 0; i < 10; i++) {
       try {
@@ -110,7 +112,7 @@ public class LeaderboardArgument {
   }
 
   private String formatMessage(String statisticName, String playerName, int position, int value) {
-    String message = ChatManager.colorMessage("Commands.Statistics.Format");
+    String message = ChatManager.colorMessage("Commands.Statistics.Format", Main.lang.getLang(playerName));
     message = StringUtils.replace(message, "%position%", String.valueOf(position));
     message = StringUtils.replace(message, "%name%", playerName);
     message = StringUtils.replace(message, "%value%", String.valueOf(value));

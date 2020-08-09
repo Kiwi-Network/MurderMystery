@@ -37,9 +37,9 @@ import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.arena.ArenaState;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.language.LanguageManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.misc.MiscUtils;
 import pl.plajer.murdermystery.user.User;
 import pl.plajer.murdermystery.utils.ItemPosition;
-import pl.plajerlair.commonsbox.minecraft.misc.MiscUtils;
 
 /**
  * @author Plajer
@@ -58,16 +58,16 @@ public class PrayerRegistry {
   public static void init(Main plugin) {
     PrayerRegistry.plugin = plugin;
     //good prayers
-    prayers.add(new Prayer(Prayer.PrayerType.DETECTIVE_REVELATION, true, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Gifts.Detective-Revelation")));
-    prayers.add(new Prayer(Prayer.PrayerType.GOLD_RUSH, true, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Gifts.Gold-Rush")));
-    prayers.add(new Prayer(Prayer.PrayerType.SINGLE_COMPENSATION, true, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Gifts.Single-Compensation")));
-    prayers.add(new Prayer(Prayer.PrayerType.BOW_TIME, true, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Gifts.Bow-Time")));
+    prayers.add(new Prayer(Prayer.PrayerType.DETECTIVE_REVELATION, true, "In-Game.Messages.Special-Blocks.Praises.Gifts.Detective-Revelation"));
+    prayers.add(new Prayer(Prayer.PrayerType.GOLD_RUSH, true, "In-Game.Messages.Special-Blocks.Praises.Gifts.Gold-Rush"));
+    prayers.add(new Prayer(Prayer.PrayerType.SINGLE_COMPENSATION, true, "In-Game.Messages.Special-Blocks.Praises.Gifts.Single-Compensation"));
+    prayers.add(new Prayer(Prayer.PrayerType.BOW_TIME, true, "In-Game.Messages.Special-Blocks.Praises.Gifts.Bow-Time"));
 
     //bad prayers
-    prayers.add(new Prayer(Prayer.PrayerType.SLOWNESS_CURSE, false, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Curses.Slowness-Curse")));
-    prayers.add(new Prayer(Prayer.PrayerType.BLINDNESS_CURSE, false, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Curses.Blindness-Curse")));
-    prayers.add(new Prayer(Prayer.PrayerType.GOLD_BAN, false, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Curses.Gold-Ban")));
-    prayers.add(new Prayer(Prayer.PrayerType.INCOMING_DEATH, false, ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Curses.Incoming-Death")));
+    prayers.add(new Prayer(Prayer.PrayerType.SLOWNESS_CURSE, false, "In-Game.Messages.Special-Blocks.Praises.Curses.Slowness-Curse"));
+    prayers.add(new Prayer(Prayer.PrayerType.BLINDNESS_CURSE, false, "In-Game.Messages.Special-Blocks.Praises.Curses.Blindness-Curse"));
+    prayers.add(new Prayer(Prayer.PrayerType.GOLD_BAN, false, "In-Game.Messages.Special-Blocks.Praises.Curses.Gold-Ban"));
+    prayers.add(new Prayer(Prayer.PrayerType.INCOMING_DEATH, false, "In-Game.Messages.Special-Blocks.Praises.Curses.Incoming-Death"));
     rand = new Random();
   }
 
@@ -84,13 +84,13 @@ public class PrayerRegistry {
     user.setStat(StatsStorage.StatisticType.LOCAL_CURRENT_PRAY, prayer.getPrayerType().ordinal());
     Player player = user.getPlayer();
     Arena arena = ArenaRegistry.getArena(user.getPlayer());
-    List<String> prayMessage = LanguageManager.getLanguageList("In-Game.Messages.Special-Blocks.Praises.Message");
+    List<String> prayMessage = LanguageManager.getLanguageList("In-Game.Messages.Special-Blocks.Praises.Message",player);
     if (prayer.isGoodPray()) {
       prayMessage = prayMessage.stream().map(msg -> msg.replace("%feeling%", ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Feelings.Blessed", player))).collect(Collectors.toList());
     } else {
       prayMessage = prayMessage.stream().map(msg -> msg.replace("%feeling%", ChatManager.colorMessage("In-Game.Messages.Special-Blocks.Praises.Feelings.Cursed", player))).collect(Collectors.toList());
     }
-    prayMessage = prayMessage.stream().map(msg -> msg.replace("%praise%", prayer.getPrayerDescription())).collect(Collectors.toList());
+    prayMessage = prayMessage.stream().map(msg -> msg.replace("%praise%", prayer.getPrayerDescription(player))).collect(Collectors.toList());
     switch (prayer.getPrayerType()) {
       case BLINDNESS_CURSE:
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0, false, false));

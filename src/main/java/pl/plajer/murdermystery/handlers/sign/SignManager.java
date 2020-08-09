@@ -47,10 +47,10 @@ import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.arena.ArenaState;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.language.LanguageManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
 import pl.plajer.murdermystery.utils.Debugger;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
-import pl.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
 
 /**
  * @author Plajer
@@ -66,12 +66,12 @@ public class SignManager implements Listener {
 
   public SignManager(Main plugin) {
     this.plugin = plugin;
-    gameStateToString.put(ArenaState.WAITING_FOR_PLAYERS, ChatManager.colorMessage("Signs.Game-States.Inactive"));
-    gameStateToString.put(ArenaState.STARTING, ChatManager.colorMessage("Signs.Game-States.Starting"));
-    gameStateToString.put(ArenaState.IN_GAME, ChatManager.colorMessage("Signs.Game-States.In-Game"));
-    gameStateToString.put(ArenaState.ENDING, ChatManager.colorMessage("Signs.Game-States.Ending"));
-    gameStateToString.put(ArenaState.RESTARTING, ChatManager.colorMessage("Signs.Game-States.Restarting"));
-    signLines = LanguageManager.getLanguageList("Signs.Lines");
+    gameStateToString.put(ArenaState.WAITING_FOR_PLAYERS, ChatManager.colorMessage("Signs.Game-States.Inactive","chinese"));
+    gameStateToString.put(ArenaState.STARTING, ChatManager.colorMessage("Signs.Game-States.Starting","chinese"));
+    gameStateToString.put(ArenaState.IN_GAME, ChatManager.colorMessage("Signs.Game-States.In-Game","chinese"));
+    gameStateToString.put(ArenaState.ENDING, ChatManager.colorMessage("Signs.Game-States.Ending","chinese"));
+    gameStateToString.put(ArenaState.RESTARTING, ChatManager.colorMessage("Signs.Game-States.Restarting","chinese"));
+    signLines = LanguageManager.getLanguageList("Signs.Lines","chinese");
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
     loadSigns();
     updateSignScheduler();
@@ -84,7 +84,7 @@ public class SignManager implements Listener {
       return;
     }
     if (e.getLine(1).isEmpty()) {
-      e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Please-Type-Arena-Name"));
+      e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Please-Type-Arena-Name",e.getPlayer()));
       return;
     }
     for (Arena arena : ArenaRegistry.getArenas()) {
@@ -95,7 +95,7 @@ public class SignManager implements Listener {
         e.setLine(i, formatSign(signLines.get(i), arena));
       }
       arenaSigns.add(new ArenaSign((Sign) e.getBlock().getState(), arena));
-      e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Sign-Created"));
+      e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Signs.Sign-Created",e.getPlayer()));
       String location = e.getBlock().getWorld().getName() + "," + e.getBlock().getX() + "," + e.getBlock().getY() + "," + e.getBlock().getZ() + ",0.0,0.0";
       FileConfiguration config = ConfigUtils.getConfig(plugin, "arenas");
       List<String> locs = config.getStringList("instances." + arena.getId() + ".signs");
@@ -104,14 +104,14 @@ public class SignManager implements Listener {
       ConfigUtils.saveConfig(plugin, config, "arenas");
       return;
     }
-    e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Arena-Doesnt-Exists"));
+    e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Signs.Arena-Doesnt-Exists",e.getPlayer()));
   }
 
   private String formatSign(String msg, Arena a) {
     String formatted = msg;
     formatted = StringUtils.replace(formatted, "%mapname%", a.getMapName());
     if (a.getPlayers().size() >= a.getMaximumPlayers()) {
-      formatted = StringUtils.replace(formatted, "%state%", ChatManager.colorMessage("Signs.Game-States.Full-Game"));
+      formatted = StringUtils.replace(formatted, "%state%", ChatManager.colorRawMessage("&c&l已满员"));
     } else {
       formatted = StringUtils.replace(formatted, "%state%", gameStateToString.get(a.getArenaState()));
     }
@@ -139,7 +139,7 @@ public class SignManager implements Listener {
         signs.remove(location);
         config.set(arena + ".signs", signs);
         ConfigUtils.saveConfig(plugin, config, "arenas");
-        e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Sign-Removed"));
+        e.getPlayer().sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Signs.Sign-Removed",e.getPlayer()));
         return;
       }
     }

@@ -21,18 +21,16 @@ package pl.plajer.murdermystery.handlers.items;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.handlers.ChatManager;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * @author Plajer
@@ -66,7 +64,7 @@ public class SpecialItem {
       config.set(name + ".slot", slot);
     }
     ConfigUtils.saveConfig(JavaPlugin.getPlugin(Main.class), config, "lobbyitems");
-    ItemStack stack = XMaterial.matchXMaterial(config.getString(name + ".material-name", "STONE").toUpperCase()).get().parseItem();
+    ItemStack stack = XMaterial.fromString(config.getString(name + ".material-name", "STONE").toUpperCase()).parseItem();
     ItemMeta meta = stack.getItemMeta();
     meta.setDisplayName(ChatManager.colorRawMessage(config.getString(name + ".displayname")));
 

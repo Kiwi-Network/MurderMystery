@@ -30,14 +30,11 @@ import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
-
 import javax.net.ssl.HttpsURLConnection;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 import pl.plajer.murdermystery.utils.services.ServiceRegistry;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * Localization service used for fetching latest locales for minigames
@@ -123,17 +120,10 @@ public class LocaleService {
    * @return SUCCESS for downloaded locale, FAIL for service fault, LATEST when locale is latest as one in repository
    */
   public DownloadStatus demandLocaleDownload(Locale locale) {
-    //service fault
-    if (localeData == null) {
-      return DownloadStatus.FAIL;
-    }
-    File localeFile = new File(plugin.getDataFolder() + "/locales/" + locale.getPrefix() + ".properties");
-    if (!localeFile.exists() || !isExact(locale, localeFile)) {
-      return writeFile(locale);
-    }
     return DownloadStatus.LATEST;
   }
 
+  /*
   private DownloadStatus writeFile(Locale locale) {
     try (Scanner scanner = new Scanner(requestLocaleFetch(locale), "UTF-8").useDelimiter("\\A")) {
       String data = scanner.hasNext() ? scanner.next() : "";
@@ -145,7 +135,7 @@ public class LocaleService {
       plugin.getLogger().log(Level.WARNING, "Demanded locale " + locale.getPrefix() + " cannot be downloaded! You should notify author!");
       return DownloadStatus.FAIL;
     }
-  }
+  }*/
 
   /**
    * Checks if plugin version allows to update locale

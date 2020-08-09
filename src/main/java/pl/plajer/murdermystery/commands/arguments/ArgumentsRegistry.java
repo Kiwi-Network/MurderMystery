@@ -54,8 +54,8 @@ import pl.plajer.murdermystery.commands.arguments.game.StatsArgument;
 import pl.plajer.murdermystery.commands.completion.TabCompletion;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.setup.SetupInventory;
+import pl.plajer.murdermystery.plajerlair.commonsbox.string.StringMatcher;
 import pl.plajer.murdermystery.utils.Utils;
-import pl.plajerlair.commonsbox.string.StringMatcher;
 
 /**
  * @author Plajer
@@ -106,7 +106,7 @@ public class ArgumentsRegistry implements CommandExecutor {
               return true;
             }
             if (ArenaRegistry.getArena(args[0]) == null) {
-              sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.No-Arena-Like-That"));
+              sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.No-Arena-Like-That",(Player)sender));
               return true;
             }
 
@@ -144,7 +144,7 @@ public class ArgumentsRegistry implements CommandExecutor {
         //sending did you mean help
         List<StringMatcher.Match> matches = StringMatcher.match(args[0], mappedArguments.get(cmd.getName().toLowerCase()).stream().map(CommandArgument::getArgumentName).collect(Collectors.toList()));
         if (!matches.isEmpty()) {
-          sender.sendMessage(ChatManager.colorMessage("Commands.Did-You-Mean").replace("%command%", label + " " + matches.get(0).getMatch()));
+          sender.sendMessage(ChatManager.colorMessage("Commands.Did-You-Mean",(Player)sender).replace("%command%", label + " " + matches.get(0).getMatch()));
           return true;
         }
       }
@@ -162,7 +162,7 @@ public class ArgumentsRegistry implements CommandExecutor {
         if (sender instanceof Player) {
           return true;
         }
-        sender.sendMessage(ChatManager.colorMessage("Commands.Only-By-Player"));
+        sender.sendMessage(ChatManager.colorMessage("Commands.Only-By-Player",(Player)sender));
         return false;
       default:
         return false;
@@ -170,12 +170,12 @@ public class ArgumentsRegistry implements CommandExecutor {
   }
 
   private void sendHelpCommand(CommandSender sender) {
-    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Header"));
-    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Description"));
+    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Header",(Player)sender));
+    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Description",(Player)sender));
     if (sender.hasPermission("murdermystery.admin")) {
-      sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Admin-Bonus-Description"));
+      sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Admin-Bonus-Description",(Player)sender));
     }
-    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Footer"));
+    sender.sendMessage(ChatManager.colorMessage("Commands.Main-Command.Footer",(Player)sender));
   }
 
   private void sendAdminHelpCommand(CommandSender sender) {

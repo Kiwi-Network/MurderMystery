@@ -20,6 +20,7 @@ package pl.plajer.murdermystery.commands.arguments.admin;
 
 import org.bukkit.command.CommandSender;
 
+import org.bukkit.entity.Player;
 import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.commands.arguments.ArgumentsRegistry;
@@ -40,16 +41,16 @@ public class ListArenasArgument {
       new LabelData("/mma list", "/mma list", "&7Shows list with all loaded arenas\n&6Permission: &7murdermystery.admin.list")) {
       @Override
       public void execute(CommandSender sender, String[] args) {
-        sender.sendMessage(ChatManager.colorMessage("Commands.Admin-Commands.List-Command.Header"));
+        sender.sendMessage(ChatManager.colorMessage_("Commands.Admin-Commands.List-Command.Header",(Player)sender));
         int i = 0;
         for (Arena arena : ArenaRegistry.getArenas()) {
-          sender.sendMessage(ChatManager.colorMessage("Commands.Admin-Commands.List-Command.Format").replace("%arena%", arena.getId())
+          sender.sendMessage(ChatManager.colorMessage_("Commands.Admin-Commands.List-Command.Format",(Player)sender).replace("%arena%", arena.getId())
             .replace("%status%", arena.getArenaState().getFormattedName()).replace("%players%", String.valueOf(arena.getPlayers().size()))
             .replace("%maxplayers%", String.valueOf(arena.getMaximumPlayers())));
           i++;
         }
         if (i == 0) {
-          sender.sendMessage(ChatManager.colorMessage("Commands.Admin-Commands.List-Command.No-Arenas"));
+          sender.sendMessage(ChatManager.colorMessage_("Commands.Admin-Commands.List-Command.No-Arenas",(Player)sender));
         }
       }
     });

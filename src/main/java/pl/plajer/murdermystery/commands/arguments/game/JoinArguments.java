@@ -50,7 +50,7 @@ public class JoinArguments {
       @Override
       public void execute(CommandSender sender, String[] args) {
         if (args.length == 1) {
-          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.Type-Arena-Name"));
+          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.Type-Arena-Name",(Player)sender));
           return;
         }
         for (Arena arena : ArenaRegistry.getArenas()) {
@@ -59,7 +59,7 @@ public class JoinArguments {
             return;
           }
         }
-        sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.No-Arena-Like-That"));
+        sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.No-Arena-Like-That",(Player)sender));
       }
     });
 
@@ -92,7 +92,7 @@ public class JoinArguments {
               return;
             }
           }
-          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.No-Free-Arenas"));
+          sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.No-Free-Arenas",(Player)sender));
         }
       });
     }

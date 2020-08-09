@@ -48,7 +48,7 @@ public class ForceStartArgument {
         }
         Arena arena = ArenaRegistry.getArena((Player) sender);
         if (arena.getPlayers().size() < 2) {
-          ChatManager.broadcast(arena, ChatManager.formatMessage(arena, ChatManager.colorMessage("In-Game.Messages.Lobby-Messages.Waiting-For-Players"), arena.getMinimumPlayers()));
+          ChatManager.broadcast_replace(arena, "In-Game.Messages.Lobby-Messages.Waiting-For-Players","%NUMBER%", String.valueOf(arena.getMinimumPlayers()));
           return;
         }
         if (arena.getArenaState() == ArenaState.WAITING_FOR_PLAYERS || arena.getArenaState() == ArenaState.STARTING) {
@@ -56,7 +56,7 @@ public class ForceStartArgument {
           arena.setForceStart(true);
           arena.setTimer(0);
           for (Player p : ArenaRegistry.getArena((Player) sender).getPlayers()) {
-            p.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("In-Game.Messages.Admin-Messages.Set-Starting-In-To-0"));
+            p.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("In-Game.Messages.Admin-Messages.Set-Starting-In-To-0",p));
           }
         }
       }

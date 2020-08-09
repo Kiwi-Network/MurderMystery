@@ -18,6 +18,9 @@
 
 package pl.plajer.murdermystery.arena.special.pray;
 
+import org.bukkit.entity.Player;
+import pl.plajer.murdermystery.handlers.ChatManager;
+
 /**
  * @author Plajer
  * <p>
@@ -43,8 +46,8 @@ public class Prayer {
     return goodPray;
   }
 
-  public String getPrayerDescription() {
-    return prayerDescription;
+  public String getPrayerDescription(Player player) {
+    return ChatManager.colorMessage_(prayerDescription,player);
   }
 
   public enum PrayerType {

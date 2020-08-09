@@ -20,22 +20,18 @@ package pl.plajer.murdermystery;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
-
+import ee.winni.plugins.languageslib.LLBInterface;
 import me.tigerhix.lib.scoreboard.ScoreboardLib;
-
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
-
 import pl.plajer.murdermystery.api.StatsStorage;
 import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.arena.ArenaEvents;
@@ -65,6 +61,10 @@ import pl.plajer.murdermystery.handlers.party.PartySupportInitializer;
 import pl.plajer.murdermystery.handlers.rewards.RewardsFactory;
 import pl.plajer.murdermystery.handlers.sign.ArenaSign;
 import pl.plajer.murdermystery.handlers.sign.SignManager;
+import pl.plajer.murdermystery.utils.bukkit.Metrics;
+import pl.plajer.murdermystery.plajerlair.commonsbox.database.MysqlDatabase;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.serialization.InventorySerializer;
 import pl.plajer.murdermystery.user.User;
 import pl.plajer.murdermystery.user.UserManager;
 import pl.plajer.murdermystery.user.data.MysqlManager;
@@ -74,9 +74,6 @@ import pl.plajer.murdermystery.utils.MessageUtils;
 import pl.plajer.murdermystery.utils.UpdateChecker;
 import pl.plajer.murdermystery.utils.Utils;
 import pl.plajer.murdermystery.utils.services.ServiceRegistry;
-import pl.plajerlair.commonsbox.database.MysqlDatabase;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
-import pl.plajerlair.commonsbox.minecraft.serialization.InventorySerializer;
 
 /**
  * @author Plajer
@@ -99,8 +96,14 @@ public class Main extends JavaPlugin {
   private HookManager hookManager;
   private UserManager userManager;
 
+  public static LLBInterface lang;
+
   @Override
   public void onEnable() {
+
+
+    lang = (LLBInterface) Bukkit.getPluginManager().getPlugin("LLB");
+
     if (!validateIfPluginShouldStart()) {
       return;
     }
@@ -223,7 +226,7 @@ public class Main extends JavaPlugin {
     ArenaSign.init(this);
     SpecialItem.loadAll();
     PermissionsManager.init();
-    new ChatManager(ChatManager.colorMessage("In-Game.Plugin-Prefix"), this);
+    new ChatManager("&4[Murder Mystery] ", this);
     new ArenaEvents(this);
     new SpectatorEvents(this);
     new QuitEvent(this);

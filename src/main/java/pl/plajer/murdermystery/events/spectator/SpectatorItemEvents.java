@@ -43,8 +43,8 @@ import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.arena.role.Role;
 import pl.plajer.murdermystery.handlers.ChatManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
 import pl.plajer.murdermystery.utils.Utils;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
 
 /**
  * @author Plajer
@@ -60,8 +60,8 @@ public class SpectatorItemEvents implements Listener {
   public SpectatorItemEvents(Main plugin) {
     this.plugin = plugin;
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    spectatorSettingsMenu = new SpectatorSettingsMenu(plugin, ChatManager.colorMessage("In-Game.Spectator.Settings-Menu.Inventory-Name"),
-      ChatManager.colorMessage("In-Game.Spectator.Settings-Menu.Speed-Name"));
+    spectatorSettingsMenu = new SpectatorSettingsMenu(plugin, "In-Game.Spectator.Settings-Menu.Inventory-Name",
+      "In-Game.Spectator.Settings-Menu.Speed-Name");
   }
 
   @EventHandler
@@ -74,10 +74,10 @@ public class SpectatorItemEvents implements Listener {
       if (stack == null || !stack.hasItemMeta() || !stack.getItemMeta().hasDisplayName()) {
         return;
       }
-      if (stack.getItemMeta().getDisplayName().equalsIgnoreCase(ChatManager.colorMessage("In-Game.Spectator.Spectator-Item-Name"))) {
+      if (stack.getItemMeta().getDisplayName().equalsIgnoreCase(ChatManager.colorMessage_("In-Game.Spectator.Spectator-Item-Name",e.getPlayer()))) {
         e.setCancelled(true);
         openSpectatorMenu(e.getPlayer().getWorld(), e.getPlayer());
-      } else if (stack.getItemMeta().getDisplayName().equalsIgnoreCase(ChatManager.colorMessage("In-Game.Spectator.Settings-Menu.Item-Name"))) {
+      } else if (stack.getItemMeta().getDisplayName().equalsIgnoreCase(ChatManager.colorMessage_("In-Game.Spectator.Settings-Menu.Item-Name",e.getPlayer()))) {
         e.setCancelled(true);
         spectatorSettingsMenu.openSpectatorSettingsMenu(e.getPlayer());
       }
@@ -86,7 +86,7 @@ public class SpectatorItemEvents implements Listener {
 
   private void openSpectatorMenu(World world, Player p) {
     Inventory inventory = plugin.getServer().createInventory(null, Utils.serializeInt(ArenaRegistry.getArena(p).getPlayers().size()),
-      ChatManager.colorMessage("In-Game.Spectator.Spectator-Menu-Name"));
+      ChatManager.colorMessage_("In-Game.Spectator.Spectator-Menu-Name",p));
     Set<Player> players = ArenaRegistry.getArena(p).getPlayers();
     for (Player player : world.getPlayers()) {
       if (players.contains(player) && !plugin.getUserManager().getUser(player).isSpectator()) {
@@ -105,11 +105,11 @@ public class SpectatorItemEvents implements Listener {
         meta.setDisplayName(player.getName());
         String role = ChatManager.colorMessage("In-Game.Spectator.Target-Player-Role", p);
         if (Role.isRole(Role.MURDERER, player)) {
-          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage("Scoreboard.Roles.Murderer"));
+          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage_("Scoreboard.Roles.Murderer",p));
         } else if (Role.isRole(Role.ANY_DETECTIVE, player)) {
-          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage("Scoreboard.Roles.Detective"));
+          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage_("Scoreboard.Roles.Detective",p));
         } else {
-          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage("Scoreboard.Roles.Innocent"));
+          role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage_("Scoreboard.Roles.Innocent",p));
         }
         meta.setLore(Collections.singletonList(role));
         skull.setDurability((short) SkullType.PLAYER.ordinal());
@@ -138,13 +138,13 @@ public class SpectatorItemEvents implements Listener {
     ItemMeta meta = e.getCurrentItem().getItemMeta();
     for (Player player : arena.getPlayers()) {
       if (player.getName().equalsIgnoreCase(meta.getDisplayName()) || ChatColor.stripColor(meta.getDisplayName()).contains(player.getName())) {
-        p.sendMessage(ChatManager.formatMessage(arena, ChatManager.colorMessage("Commands.Admin-Commands.Teleported-To-Player"), player));
+        p.sendMessage(ChatManager.formatMessage(arena, ChatManager.colorMessage_("Commands.Admin-Commands.Teleported-To-Player",player), player));
         p.teleport(player);
         p.closeInventory();
         return;
       }
     }
-    p.sendMessage(ChatManager.colorMessage("Commands.Admin-Commands.Player-Not-Found"));
+    p.sendMessage(ChatManager.colorMessage_("Commands.Admin-Commands.Player-Not-Found",p));
   }
 
 }

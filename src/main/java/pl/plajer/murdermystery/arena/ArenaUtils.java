@@ -75,11 +75,11 @@ public class ArenaUtils {
   }
 
   public static void addScore(User user, ScoreAction action, int amount) {
-    String msg = ChatManager.colorMessage("In-Game.Messages.Bonus-Score");
+    String msg = ChatManager.colorMessage_("In-Game.Messages.Bonus-Score",user.getPlayer());
     msg = StringUtils.replace(msg, "%score%", String.valueOf(action.getPoints()));
     if (action == ScoreAction.GOLD_PICKUP && amount > 1) {
       msg = StringUtils.replace(msg, "%score%", String.valueOf(action.getPoints() * amount));
-      msg = StringUtils.replace(msg, "%action%", action.getAction());
+      msg = StringUtils.replace(msg, "%action%", action.getAction(user.getPlayer()));
       user.setStat(StatsStorage.StatisticType.LOCAL_SCORE, user.getStat(StatsStorage.StatisticType.LOCAL_SCORE) + (action.getPoints() * amount));
       user.getPlayer().sendMessage(msg);
       return;
@@ -93,7 +93,7 @@ public class ArenaUtils {
       }
       user.setStat(StatsStorage.StatisticType.LOCAL_SCORE, user.getStat(StatsStorage.StatisticType.LOCAL_SCORE) + (100 * innocents));
       msg = StringUtils.replace(msg, "%score%", String.valueOf(100 * innocents));
-      msg = StringUtils.replace(msg, "%action%", action.getAction().replace("%amount%", String.valueOf(innocents)));
+      msg = StringUtils.replace(msg, "%action%", action.getAction(user.getPlayer()).replace("%amount%", String.valueOf(innocents)));
       user.getPlayer().sendMessage(msg);
       return;
     }
@@ -101,7 +101,7 @@ public class ArenaUtils {
     if (action.getPoints() < 0){
       msg = StringUtils.replace(msg, "+", "");
     }
-    msg = StringUtils.replace(msg, "%action%", action.getAction());
+    msg = StringUtils.replace(msg, "%action%", action.getAction(user.getPlayer()));
     user.setStat(StatsStorage.StatisticType.LOCAL_SCORE, user.getStat(StatsStorage.StatisticType.LOCAL_SCORE) + action.getPoints());
     user.getPlayer().sendMessage(msg);
   }
@@ -110,10 +110,12 @@ public class ArenaUtils {
     if (!arena.isMurdererLocatorReceived()) {
       ItemStack innocentLocator = new ItemStack(Material.COMPASS, 1);
       ItemMeta innocentMeta = innocentLocator.getItemMeta();
-      innocentMeta.setDisplayName(ChatManager.colorMessage("In-Game.Innocent-Locator-Item-Name"));
-      innocentLocator.setItemMeta(innocentMeta);
       for (Player p : arena.getPlayersLeft()) {
+
         if (arena.isMurderAlive(p)) {
+
+          innocentMeta.setDisplayName(ChatManager.colorMessage_("In-Game.Innocent-Locator-Item-Name",p));
+          innocentLocator.setItemMeta(innocentMeta);
           ItemPosition.setItem(p, ItemPosition.INNOCENTS_LOCATOR, innocentLocator);
         }
       }
@@ -142,10 +144,13 @@ public class ArenaUtils {
   private static void addBowLocator(Arena arena, Location loc) {
     ItemStack bowLocator = new ItemStack(Material.COMPASS, 1);
     ItemMeta bowMeta = bowLocator.getItemMeta();
-    bowMeta.setDisplayName(ChatManager.colorMessage("In-Game.Bow-Locator-Item-Name"));
-    bowLocator.setItemMeta(bowMeta);
     for (Player p : arena.getPlayersLeft()) {
       if (Role.isRole(Role.INNOCENT, p)) {
+
+
+        bowMeta.setDisplayName(ChatManager.colorMessage_("In-Game.Bow-Locator-Item-Name",p));
+        bowLocator.setItemMeta(bowMeta);
+
         ItemPosition.setItem(p, ItemPosition.BOW_LOCATOR, bowLocator);
         p.setCompassTarget(loc);
       }
@@ -248,10 +253,14 @@ public class ArenaUtils {
   }
 
   public enum ScoreAction {
-    KILL_PLAYER(100, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Kill-Player")), KILL_MURDERER(200, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Kill-Murderer")),
-    GOLD_PICKUP(15, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Gold-Pickup")), SURVIVE_TIME(150, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Survive")),
-    SURVIVE_GAME(200, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Survive-Till-End")), WIN_GAME(100, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Win-Game")),
-    DETECTIVE_WIN_GAME(0, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Detective-Reward")), INNOCENT_KILL(-100, ChatManager.colorMessage("In-Game.Messages.Score-Actions.Innocent-Kill"));
+    KILL_PLAYER(100, "In-Game.Messages.Score-Actions.Kill-Player"),
+    KILL_MURDERER(200, "In-Game.Messages.Score-Actions.Kill-Murderer"),
+    GOLD_PICKUP(15, "In-Game.Messages.Score-Actions.Gold-Pickup"),
+    SURVIVE_TIME(150, "In-Game.Messages.Score-Actions.Survive"),
+    SURVIVE_GAME(200, "In-Game.Messages.Score-Actions.Survive-Till-End"),
+    WIN_GAME(100, "In-Game.Messages.Score-Actions.Win-Game"),
+    DETECTIVE_WIN_GAME(0, "In-Game.Messages.Score-Actions.Detective-Reward"),
+    INNOCENT_KILL(-100, "In-Game.Messages.Score-Actions.Innocent-Kill");
 
     int points;
     String action;
@@ -265,8 +274,8 @@ public class ArenaUtils {
       return points;
     }
 
-    public String getAction() {
-      return action;
+    public String getAction(Player player) {
+      return ChatManager.colorMessage_(action,player);
     }
   }
 

@@ -20,12 +20,10 @@ package pl.plajer.murdermystery;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
-
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
 import pl.plajer.murdermystery.utils.MessageUtils;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
 
 /**
  * @author Plajer
@@ -46,7 +44,7 @@ public class ConfigPreferences {
 
   private void loadMurdererSword() {
     try {
-      murdererSword = XMaterial.matchXMaterial(plugin.getConfig().getString("Murderer-Sword-Material", "IRON_SWORD").toUpperCase()).get().parseItem();
+      murdererSword = XMaterial.fromString(plugin.getConfig().getString("Murderer-Sword-Material", "IRON_SWORD").toUpperCase()).parseItem();
     } catch (Exception ex) {
       MessageUtils.errorOccurred();
       Bukkit.getConsoleSender().sendMessage("Can not found Material " + plugin.getConfig().getString("Murderer-Sword-Material", "IRON_SWORD"));

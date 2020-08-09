@@ -33,10 +33,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.arena.special.SpecialBlock;
 import pl.plajer.murdermystery.handlers.ChatManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
 import pl.plajer.murdermystery.utils.Debugger;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
-import pl.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
-
 /**
  * Created by Tom on 27/07/2014.
  */
@@ -123,13 +122,13 @@ public class ArenaRegistry {
     FileConfiguration config = ConfigUtils.getConfig(plugin, "arenas");
 
     if (!config.contains("instances")) {
-      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.No-Instances-Created"));
+      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.No-Instances-Created","chinese"));
       return;
     }
 
     ConfigurationSection section = config.getConfigurationSection("instances");
     if (section == null) {
-      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.No-Instances-Created"));
+      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.No-Instances-Created","chinese"));
       return;
     }
     for (String id : section.getKeys(false)) {
@@ -175,14 +174,14 @@ public class ArenaRegistry {
       arena.setEndLocation(LocationSerializer.getLocation(config.getString(s + "Endlocation", "world,364.0,63.0,-72.0,0.0,0.0")));
 
       if (!config.getBoolean(s + "isdone", false)) {
-        Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.Invalid-Arena-Configuration").replace("%arena%", id).replace("%error%", "NOT VALIDATED"));
+        Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.Invalid-Arena-Configuration","chinese").replace("%arena%", id).replace("%error%", "NOT VALIDATED"));
         arena.setReady(false);
         ArenaRegistry.registerArena(arena);
         continue;
       }
       ArenaRegistry.registerArena(arena);
       arena.start();
-      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.Instance-Started").replace("%arena%", id));
+      Bukkit.getConsoleSender().sendMessage(ChatManager.colorMessage("Validator.Instance-Started","chinese").replace("%arena%", id));
     }
     Debugger.debug(Level.INFO, "Arenas registration completed, took {0}ms", System.currentTimeMillis() - start);
   }

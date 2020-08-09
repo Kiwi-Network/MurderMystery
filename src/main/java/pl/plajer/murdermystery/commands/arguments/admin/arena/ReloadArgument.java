@@ -37,8 +37,8 @@ import pl.plajer.murdermystery.commands.arguments.data.LabelData;
 import pl.plajer.murdermystery.commands.arguments.data.LabeledCommandArgument;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.language.LanguageManager;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.serialization.InventorySerializer;
 import pl.plajer.murdermystery.utils.Debugger;
-import pl.plajerlair.commonsbox.minecraft.serialization.InventorySerializer;
 
 /**
  * @author Plajer
@@ -88,7 +88,7 @@ public class ReloadArgument {
           Debugger.debug(Level.INFO, "[Reloader] Instance {0} stopped took {1}ms", arena.getId(), System.currentTimeMillis() - stopTime);
         }
         ArenaRegistry.registerArenas();
-        sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands.Admin-Commands.Success-Reload"));
+        sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands.Admin-Commands.Success-Reload",(Player)sender));
         Debugger.debug(Level.INFO, "[Reloader] Finished reloading took {0}ms", System.currentTimeMillis() - start);
       }
     });

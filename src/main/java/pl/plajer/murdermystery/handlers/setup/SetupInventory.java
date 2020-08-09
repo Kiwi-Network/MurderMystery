@@ -35,7 +35,7 @@ import pl.plajer.murdermystery.handlers.setup.components.MiscComponents;
 import pl.plajer.murdermystery.handlers.setup.components.PlayerAmountComponents;
 import pl.plajer.murdermystery.handlers.setup.components.SpawnComponents;
 import pl.plajer.murdermystery.handlers.setup.components.SpecialBlocksComponents;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
 
 /**
  * @author Plajer

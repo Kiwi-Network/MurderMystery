@@ -37,7 +37,7 @@ import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.arena.ArenaRegistry;
 import pl.plajer.murdermystery.arena.ArenaState;
 import pl.plajer.murdermystery.handlers.ChatManager;
-import pl.plajerlair.commonsbox.string.StringFormatUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.string.StringFormatUtils;
 
 /**
  * @author Plajer
@@ -133,7 +133,7 @@ public class Utils {
     if (sender.hasPermission(perm)) {
       return true;
     }
-    sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Commands-No-Permission"));
+    sender.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Commands-No-Permission",(Player) sender));
     return false;
   }
 

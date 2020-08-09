@@ -43,11 +43,11 @@ import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.setup.SetupInventory;
 import pl.plajer.murdermystery.handlers.sign.ArenaSign;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.compat.XMaterial;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.item.ItemBuilder;
+import pl.plajer.murdermystery.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
 import pl.plajer.murdermystery.utils.conversation.SimpleConversationBuilder;
-import pl.plajerlair.commonsbox.minecraft.compat.XMaterial;
-import pl.plajerlair.commonsbox.minecraft.configuration.ConfigUtils;
-import pl.plajerlair.commonsbox.minecraft.item.ItemBuilder;
-import pl.plajerlair.commonsbox.minecraft.serialization.LocationSerializer;
 
 /**
  * @author Plajer
@@ -91,7 +91,7 @@ public class MiscComponents implements SetupComponent {
       e.getWhoClicked().closeInventory();
       Location location = player.getTargetBlock(null, 10).getLocation();
       if (!(location.getBlock().getState() instanceof Sign)) {
-        player.sendMessage(ChatManager.colorMessage("Commands.Look-Sign"));
+        player.sendMessage(ChatManager.colorMessage_("Commands.Look-Sign",player));
         return;
       }
       if (location.distance(e.getWhoClicked().getWorld().getSpawnLocation()) <= Bukkit.getServer().getSpawnRadius()
@@ -102,7 +102,7 @@ public class MiscComponents implements SetupComponent {
         return;
       }
       plugin.getSignManager().getArenaSigns().add(new ArenaSign((Sign) location.getBlock().getState(), arena));
-      player.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage("Signs.Sign-Created"));
+      player.sendMessage(ChatManager.PLUGIN_PREFIX + ChatManager.colorMessage_("Signs.Sign-Created",player));
       String signLoc = location.getBlock().getWorld().getName() + "," + location.getBlock().getX() + "," + location.getBlock().getY() + "," + location.getBlock().getZ() + ",0.0,0.0";
       List<String> locs = config.getStringList("instances." + arena.getId() + ".signs");
       locs.add(signLoc);

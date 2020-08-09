@@ -20,7 +20,6 @@ package pl.plajer.murdermystery.arena.corpse;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import org.bukkit.entity.ArmorStand;
-import org.golde.bukkit.corpsereborn.nms.Corpses;
 
 /**
  * @author Plajer

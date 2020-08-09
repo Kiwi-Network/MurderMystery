@@ -20,17 +20,12 @@ package pl.plajer.murdermystery.handlers;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import pl.plajer.murdermystery.Main;
 import pl.plajer.murdermystery.arena.Arena;
 import pl.plajer.murdermystery.handlers.language.LanguageManager;
-import pl.plajer.murdermystery.utils.MessageUtils;
-import pl.plajer.murdermystery.utils.services.exception.ReportedException;
-import pl.plajerlair.commonsbox.string.StringFormatUtils;
+import pl.plajer.murdermystery.plajerlair.commonsbox.string.StringFormatUtils;
 
 /**
  * @author Plajer
@@ -52,16 +47,32 @@ public class ChatManager {
     return ChatColor.translateAlternateColorCodes('&', message);
   }
 
-  public static String colorMessage(String message) {
-      return ChatColor.translateAlternateColorCodes('&', LanguageManager.getLanguageMessage(message));
+  public static String colorMessage_(String message, Player player) {
+      return ChatColor.translateAlternateColorCodes('&', LanguageManager.getLanguageMessage(message,player));
   }
 
   public static String colorMessage(String message, Player player) {
-    String returnString = LanguageManager.getLanguageMessage(message);
+    String returnString = LanguageManager.getLanguageMessage(message,player);
     if (plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
       returnString = PlaceholderAPI.setPlaceholders(player, returnString);
     }
-    return ChatColor.translateAlternateColorCodes('&', returnString);
+    return colorRawMessage(returnString);
+  }
+
+  public static String colorMessage(String message, String lang) {
+    return colorRawMessage(Main.lang.getString(lang,message));
+  }
+
+  public static void broadcast_(Arena arena, String key) {
+    for (Player p : arena.getPlayers()) {
+      p.sendMessage(PLUGIN_PREFIX + colorMessage_(key,p));
+    }
+  }
+
+  public static void broadcast_replace(Arena arena, String key, String a1, String a2) {
+    for (Player p : arena.getPlayers()) {
+      p.sendMessage(PLUGIN_PREFIX + colorMessage_(key,p).replace(a1,a2));
+    }
   }
 
   public static void broadcast(Arena arena, String message) {
@@ -102,13 +113,13 @@ public class ChatManager {
     String message;
     switch (action) {
       case JOIN:
-        message = formatMessage(a, ChatManager.colorMessage("In-Game.Messages.Join"), p);
+        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Join",p), p);
         break;
       case LEAVE:
-        message = formatMessage(a, ChatManager.colorMessage("In-Game.Messages.Leave"), p);
+        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Leave",p), p);
         break;
       case DEATH:
-        message = formatMessage(a, ChatManager.colorMessage("In-Game.Messages.Death"), p);
+        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Death",p), p);
         break;
       default:
         return; //likely won't ever happen
