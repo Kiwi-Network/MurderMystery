@@ -2,8 +2,8 @@
 # Probably you will only translate displayname and lore so don't mess with it.
 
 Leave:
-  displayname: "&c&lReturn to Lobby &7(Right Click)"
+  displayname: LobbyItem.Name
   lore:
-    - "&7Right-click to leave to the lobby"
+  - LobbyItem.Lore
   material-name: BED
   slot: 8

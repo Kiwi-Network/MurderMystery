@@ -17,16 +17,16 @@
 #    ru - Русский язык              es - Idioma español
 #    nl - Nederlandse taal          pt_br - Português (Brasil)
 #    tr - Türk dili                 sk - Slovenský jazyk
-locale: default
+locale: cn
 
 # Enable bossbar support?
-Bossbar-Enabled: true
+Bossbar-Enabled: false
 
 # How many seconds game should take to start.
-Starting-Waiting-Time: 60
+Starting-Waiting-Time: 15
 
 # Lobby waiting time set when lobby max players number is reached, used to start game quicker.
-Start-Time-On-Full-Lobby: 15
+Start-Time-On-Full-Lobby: 5
 
 # How many seconds classic game should play.
 Classic-Gameplay-Time: 270
@@ -34,7 +34,7 @@ Classic-Gameplay-Time: 270
 # Should we hook into bungee cord? (If you wanna use arena per server option)
 # You STILL need to use external addon for HUB server game signs
 # Murder Mystery doesn't offer that addon.
-# Check here for more info: https://wiki.plugily.xyz/minecraft/murdermystery/addons.php#bungee-signs-not-official
+# Check here for more info: https://wiki.plajer.xyz/minecraft/murdermystery/addons.php#bungee-signs-not-official
 BungeeActivated: false
 
 # Enable this option when you're using MySQL, otherwise it won't work.
@@ -51,10 +51,6 @@ InventoryManager: true
 # You can edit the formatting in language.yml
 ChatFormat-Enabled: true
 
-# Should we disable all chat related stuff?
-# It will disable the separated chat, for example
-Disable-Separate-Chat: false
-
 # Should we override corpses spawn from CorpsesReborn plugin?
 # When player will die outside game corpse won't be spawned!
 # Disable this if you don't want this!
@@ -69,12 +65,6 @@ Murderer-Sword-Material: IRON_SWORD
 # blinking each tick
 Murderer-Sword-Speed: 0.65
 
-# How many blocks should the sword fly
-Murderer-Sword-Fly-Range: 20
-
-# In what radius should we hit the players
-Murderer-Sword-Fly-Hit-Range: 0.5
-
 #How long should be the sword attack after throw cooldown in seconds?
 #Its normal lower than Murderer-Sword-Fly-Cooldown!
 Murderer-Sword-Attack-Cooldown: 1
@@ -82,26 +72,11 @@ Murderer-Sword-Attack-Cooldown: 1
 #How long should be the sword fly cooldown in seconds?
 Murderer-Sword-Fly-Cooldown: 5
 
-#Should we change spawner mode to spawn on all spawners instant of random one
-Change-Gold-Spawner-Mode-To-All: false
-
-#Should we disable the gold spawn limit (It does not spawn more gold than spawner locations)
-Disable-Gold-Limiter: false
-
 #How much arrows should a player with bow gets when he pick up a gold ingot?
 Detective-Gold-Pick-Up-Arrows: 1
 
-#How much gold should a player need to get a bow
-Gold-For-Bow: 10
-
-#How much arrows should the player get? (Cause: Bow because enough gold collected)
-Gold-Bow-Arrows: 3
-
 #How much arrows should the detective gets on game start or when a player get a bow?
 Detective-Default-Arrows: 3
-
-#How much arrows should the fake detective get? (Cause: Player pick up bow after detective died)
-Detective-Fake-Arrows: 3
 
 #How much arrows should the player get when the prayer gives a bow to him?
 Detective-Prayer-Arrows: 2
@@ -109,16 +84,7 @@ Detective-Prayer-Arrows: 2
 #How long should be the bow shoot cooldown in seconds?
 Detective-Bow-Cooldown: 5
 
-#Should Detectives be killed if they kill a innocent?
-Enable-Kill-Detective-If-Innocent-Killed: true
-
-#Should the murderer get speed effect?
-Speed-Effect-Murderer:
-  Enabled: true
-  #Enter a multiplier (min 2, max 10)
-  Speed: 3
-
-# Basic permissions for game, permissions explained here: https://wiki.plugily.xyz/minecraft/murdermystery/cmds_and_perms.php#basic-permissions
+# Basic permissions for game, permissions explained here: https://wiki.plajer.xyz/minecraft/murdermystery/cmds_and_perms.php#basic-permissions
 Basic-Permissions:
   Full-Games-Permission: "murdermystery.fullgames"
   # <arena> represents arena name (NOT MAP NAME!), for example: 'murdermystery.join.MM02'
@@ -168,10 +134,7 @@ Update-Notifier:
   # BETA IS NOT ALWAYS AS STABLE AS NORMAL RELEASE!
   Notify-Beta-Versions: true
 
-#Disable Party features of external party plugins (such as PAF, Parties ...)
-Disable-Parties: true
-
 # Don't modify.
-Version: 18
+Version: 10
 
 # No way! You've reached the end! But... where's the dragon!?

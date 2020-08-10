@@ -129,7 +129,7 @@ Bossbar:
 
 In-Game:
   #Used in most game messages.
-  Plugin-Prefix: "§4[Murder Mystery] §7"
+  Plugin-Prefix: ""
   Already-Playing: "§c您已經加入一個遊戲了"
   Join-No-Permission: "§cYou don't have §6%permission% §cpermission to join this arena!"
   Full-Game-No-Permission: "§c當前遊戲已滿,無法加入!"
@@ -157,16 +157,16 @@ In-Game:
   Messages:
     Lobby-Messages:
       Start-In: "§7遊戲將在 §b%TIME%§7 秒後開始!"
-      Waiting-For-Players: "§7等待玩家加入, 最少需要 §b%MINPLAYERS%§7."
+      Waiting-For-Players: "§7等待玩家加入, 最少需要 §b%NUMBER%§7."
       Enough-Players-To-Start: "§7已經達到最小玩家, 遊戲即將開始."
       Game-Started: "§7遊戲已經開始, 存活到最後!"
       Kicked-For-Premium-Slot: "§c%PLAYER% got removed from the game to make a place for premium players!"
       You-Were-Kicked-For-Premium-Slot: "§cYou got kicked out of the game to make a place for a premium player!"
       Role-Chances-Action-Bar: "§c成為殺手概率: %murderer_chance% §a- §b成為偵探概率: %detective_chance%"
       Not-Enough-Space-For-Party: "§cYour party is bigger than free places on the arena %ARENANAME%"
-    Join: "§b%PLAYER% §7加入了遊戲 (%PLAYERSIZE%/%MAXPLAYERS%)!"
-    Leave: "§b%PLAYER% §7離開了遊戲 (%PLAYERSIZE%/%MAXPLAYERS%)!"
-    Death: "§b%PLAYER% §7死了!"
+    Join: "%PLAYER% §e加入了遊戲 (§b%PLAYERSIZE%§e/§b%MAXPLAYERS%§e)!"
+    Leave: "%PLAYER% §e離開了遊戲 (§b%PLAYERSIZE%§e/§b%MAXPLAYERS%§e)!"
+    Death: "%PLAYER% §7死了!"
     Seconds-Left-Title: "§e剩餘 §c%time% §e秒"
     Seconds-Left-Subtitle: "§e殺手將在 %time% 秒後失敗"
     Role-Set:
@@ -197,7 +197,7 @@ In-Game:
       Cauldron-Drink-Potion: "§c您背包中已經有一瓶藥水了!"
       Not-Enough-Gold: "§c您需要 %amount% 金錠來夠買!"
       Cauldron-Hologram: "§f神秘藥水 - 1 §e金錠"
-      Praise-Hologram: "§e拉下拉杆向神明祈禱"
+      Praise-Hologram: "§e用金錠右擊附魔台向神明祈禱"
       Prayed-Message: "§a您向神秘祈禱了, 希望他們能夠聽到!"
       No-Money-No-Pray: "§c您需要金錠來祈禱!"
       Praises:
@@ -240,7 +240,7 @@ In-Game:
         Murderer-Kill-Everyone: "§6殺手殺了所有人."
         Murderer-Killed-You: "§e殺手殺死了你!"
         Player-Killed-You: "§c一位玩家用弓殺死了你!"
-        Killed-Innocent: "§e你殺死了無辜的平民!"
+        Killed-Innocent: "§e你殺死了無辜的平民, 這是個背叛!"
       Winners:
         Players: "§e平民與偵探"
         Murderer: "§c殺手"
