@@ -24,6 +24,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -85,7 +86,14 @@ public class SpecialItem {
     return slot;
   }
 
-  public ItemStack getItemStack() {
-    return itemStack;
+  public ItemStack getItemStack(Player player) {
+    ItemStack ns = itemStack.clone();
+    ItemMeta meta = ns.getItemMeta();
+    meta.setDisplayName(ChatManager.colorMessage_(meta.getDisplayName(),player));
+    List<String> lore = meta.getLore();
+    lore.set(0,ChatManager.colorMessage_(lore.get(0),player));
+    meta.setLore(lore);
+    ns.setItemMeta(meta);
+    return ns;
   }
 }

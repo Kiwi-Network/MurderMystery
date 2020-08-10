@@ -103,7 +103,7 @@ public class SpectatorItemEvents implements Listener {
           meta.setOwningPlayer(player);
         }
         meta.setDisplayName(player.getName());
-        String role = ChatManager.colorMessage("In-Game.Spectator.Target-Player-Role", p);
+        String role = ChatManager.colorMessage_("In-Game.Spectator.Target-Player-Role", p);
         if (Role.isRole(Role.MURDERER, player)) {
           role = StringUtils.replace(role, "%ROLE%", ChatManager.colorMessage_("Scoreboard.Roles.Murderer",p));
         } else if (Role.isRole(Role.ANY_DETECTIVE, player)) {
@@ -131,7 +131,7 @@ public class SpectatorItemEvents implements Listener {
       || !e.getCurrentItem().getItemMeta().hasDisplayName() || !e.getCurrentItem().getItemMeta().hasLore()) {
       return;
     }
-    if (!e.getView().getTitle().equalsIgnoreCase(ChatManager.colorMessage("In-Game.Spectator.Spectator-Menu-Name", p))) {
+    if (!e.getView().getTitle().equalsIgnoreCase(ChatManager.colorMessage_("In-Game.Spectator.Spectator-Menu-Name", p))) {
       return;
     }
     e.setCancelled(true);

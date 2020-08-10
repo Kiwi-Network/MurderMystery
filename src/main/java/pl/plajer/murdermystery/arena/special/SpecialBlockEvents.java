@@ -112,7 +112,9 @@ public class SpecialBlockEvents implements Listener {
     Bukkit.getScheduler().runTaskLater(plugin, item::remove, 20);
     user.setStat(StatsStorage.StatisticType.LOCAL_GOLD, user.getStat(StatsStorage.StatisticType.LOCAL_GOLD) - 1);
     ItemPosition.addItem(e.getPlayer(), ItemPosition.GOLD_INGOTS, new ItemStack(Material.GOLD_INGOT, -1));
-    ItemPosition.setItem(e.getPlayer(), ItemPosition.POTION, new ItemBuilder(XMaterial.POTION.parseItem()).name(MysteryPotionRegistry.getRandomPotion().getName()).build());
+
+    MysteryPotion p = MysteryPotionRegistry.getRandomPotion();
+    ItemPosition.setItem(e.getPlayer(), ItemPosition.POTION, new ItemBuilder(XMaterial.POTION.parseItem()).name(p.getName(user.getPlayer())).build());
   }
 
   private void onPrayerClick(PlayerInteractEvent e) {
@@ -152,10 +154,11 @@ public class SpecialBlockEvents implements Listener {
       return;
     }
     for (MysteryPotion potion : MysteryPotionRegistry.getMysteryPotions()) {
-      if (e.getItem().getItemMeta().getDisplayName().equals(potion.getName())) {
+      if (e.getItem().getItemMeta().getDisplayName().equals(potion.getName(e.getPlayer()))) {
+
         e.setCancelled(true);
-        e.getPlayer().sendMessage(potion.getSubtitle());
-        e.getPlayer().sendTitle("", potion.getSubtitle(), 5, 40, 5);
+        //e.getPlayer().sendMessage(potion.getSubtitle(e.getPlayer()));
+        //e.getPlayer().sendTitle("", potion.getSubtitle(e.getPlayer()), 5, 40, 5);
         ItemPosition.setItem(e.getPlayer(), ItemPosition.POTION, null);
         e.getPlayer().addPotionEffect(potion.getPotionEffect());
         return;

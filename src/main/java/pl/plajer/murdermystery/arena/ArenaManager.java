@@ -179,7 +179,7 @@ public class ArenaManager {
 
       player.getInventory().setItem(0, new ItemBuilder(XMaterial.COMPASS.parseItem()).name(ChatManager.colorMessage_("In-Game.Spectator.Spectator-Item-Name",player)).build());
       player.getInventory().setItem(4, new ItemBuilder(XMaterial.COMPARATOR.parseItem()).name(ChatManager.colorMessage_("In-Game.Spectator.Settings-Menu.Item-Name",player)).build());
-      player.getInventory().setItem(8, SpecialItemManager.getSpecialItem("Leave").getItemStack());
+      player.getInventory().setItem(8, SpecialItemManager.getSpecialItem("Leave").getItemStack(player));
 
       for (PotionEffect potionEffect : player.getActivePotionEffects()) {
         player.removePotionEffect(potionEffect.getType());
@@ -215,7 +215,7 @@ public class ArenaManager {
       ChatManager.broadcastAction(arena, player, ChatManager.ActionType.JOIN);
     }
     if (arena.getArenaState() == ArenaState.STARTING || arena.getArenaState() == ArenaState.WAITING_FOR_PLAYERS) {
-      player.getInventory().setItem(SpecialItemManager.getSpecialItem("Leave").getSlot(), SpecialItemManager.getSpecialItem("Leave").getItemStack());
+      player.getInventory().setItem(SpecialItemManager.getSpecialItem("Leave").getSlot(), SpecialItemManager.getSpecialItem("Leave").getItemStack(player));
     }
     player.updateInventory();
     for (Player arenaPlayer : arena.getPlayers()) {
@@ -418,7 +418,7 @@ public class ArenaManager {
       player.setWalkSpeed(0.2f);
 
       player.getInventory().clear();
-      player.getInventory().setItem(SpecialItemManager.getSpecialItem("Leave").getSlot(), SpecialItemManager.getSpecialItem("Leave").getItemStack());
+      player.getInventory().setItem(SpecialItemManager.getSpecialItem("Leave").getSlot(), SpecialItemManager.getSpecialItem("Leave").getItemStack(player));
       if (!quickStop) {
         for (String msg : summaryMessages) {
           MiscUtils.sendCenteredMessage(player, formatSummaryPlaceholders(msg, arena, player));

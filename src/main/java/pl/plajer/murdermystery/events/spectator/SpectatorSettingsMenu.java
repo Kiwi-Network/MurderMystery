@@ -105,20 +105,20 @@ public class SpectatorSettingsMenu implements Listener {
   private Inventory initInventory(Player player) {
     Inventory inv = Bukkit.createInventory(null, 9 * 3, getInventoryName(player));
     inv.setItem(11, new ItemBuilder(Material.LEATHER_BOOTS)
-      .name(color(speedOptionName + " I")).build());
+      .name(color(ChatManager.colorMessage_(speedOptionName,player) + " I")).build());
     inv.setItem(12, new ItemBuilder(Material.CHAINMAIL_BOOTS)
-      .name(color(speedOptionName + " II")).build());
+      .name(color(ChatManager.colorMessage_(speedOptionName,player) + " II")).build());
     inv.setItem(13, new ItemBuilder(Material.IRON_BOOTS)
-      .name(color(speedOptionName + " III")).build());
+      .name(color(ChatManager.colorMessage_(speedOptionName,player) + " III")).build());
     inv.setItem(14, new ItemBuilder(XMaterial.GOLDEN_BOOTS.parseItem())
-      .name(color(speedOptionName + " IV")).build());
+      .name(color(ChatManager.colorMessage_(speedOptionName,player) + " IV")).build());
     inv.setItem(15, new ItemBuilder(Material.DIAMOND_BOOTS)
-      .name(color(speedOptionName + " V")).build());
+      .name(color(ChatManager.colorMessage_(speedOptionName,player) + " V")).build());
     return inv;
   }
 
   private String color(String message) {
-    return ChatColor.translateAlternateColorCodes('&', message);
+    return ChatManager.colorRawMessage(message);
   }
 
 }

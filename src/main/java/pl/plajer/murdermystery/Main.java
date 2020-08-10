@@ -48,14 +48,12 @@ import pl.plajer.murdermystery.events.LobbyEvent;
 import pl.plajer.murdermystery.events.QuitEvent;
 import pl.plajer.murdermystery.events.spectator.SpectatorEvents;
 import pl.plajer.murdermystery.events.spectator.SpectatorItemEvents;
-import pl.plajer.murdermystery.handlers.BowTrailsHandler;
 import pl.plajer.murdermystery.handlers.BungeeManager;
 import pl.plajer.murdermystery.handlers.ChatManager;
 import pl.plajer.murdermystery.handlers.CorpseHandler;
 import pl.plajer.murdermystery.handlers.PermissionsManager;
 import pl.plajer.murdermystery.handlers.PlaceholderManager;
 import pl.plajer.murdermystery.handlers.items.SpecialItem;
-import pl.plajer.murdermystery.handlers.language.LanguageManager;
 import pl.plajer.murdermystery.handlers.party.PartyHandler;
 import pl.plajer.murdermystery.handlers.party.PartySupportInitializer;
 import pl.plajer.murdermystery.handlers.rewards.RewardsFactory;
@@ -83,7 +81,7 @@ import pl.plajer.murdermystery.utils.services.ServiceRegistry;
 public class Main extends JavaPlugin {
 
   private ExceptionLogHandler exceptionLogHandler;
-  private String version;
+  private String version = "v1_12_R1";
   private boolean forceDisable = false;
   private BungeeManager bungeeManager;
   private RewardsFactory rewardsHandler;
@@ -110,7 +108,7 @@ public class Main extends JavaPlugin {
 
     ServiceRegistry.registerService(this);
     exceptionLogHandler = new ExceptionLogHandler(this);
-    LanguageManager.init(this);
+    //LanguageManager.init(this);
     saveDefaultConfig();
     if (getDescription().getVersion().contains("b")) {
       Debugger.setEnabled(true);
@@ -146,7 +144,8 @@ public class Main extends JavaPlugin {
   }
 
   private boolean validateIfPluginShouldStart() {
-    version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+
+    /*version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     if (!(version.equalsIgnoreCase("v1_12_R1") || version.equalsIgnoreCase("v1_13_R1")
       || version.equalsIgnoreCase("v1_13_R2") || version.equalsIgnoreCase("v1_14_R1") || version.equalsIgnoreCase("v1_15_R1") || version.equalsIgnoreCase("v1_16_R1"))) {
       MessageUtils.thisVersionIsNotSupported();
@@ -155,7 +154,7 @@ public class Main extends JavaPlugin {
       forceDisable = true;
       getServer().getPluginManager().disablePlugin(this);
       return false;
-    }
+    }*/
     try {
       Class.forName("org.spigotmc.SpigotConfig");
     } catch (Exception e) {
@@ -226,7 +225,7 @@ public class Main extends JavaPlugin {
     ArenaSign.init(this);
     SpecialItem.loadAll();
     PermissionsManager.init();
-    new ChatManager("&4[Murder Mystery] ", this);
+    new ChatManager(ChatManager.colorMessage("In-Game.Plugin-Prefix","chinese"), this);
     new ArenaEvents(this);
     new SpectatorEvents(this);
     new QuitEvent(this);
@@ -242,7 +241,7 @@ public class Main extends JavaPlugin {
     signManager = new SignManager(this);
     corpseHandler = new CorpseHandler(this);
     partyHandler = new PartySupportInitializer().initialize(this);
-    new BowTrailsHandler(this);
+    //new BowTrailsHandler(this);
     MysteryPotionRegistry.init(this);
     PrayerRegistry.init(this);
     new SpecialBlockEvents(this);
@@ -264,7 +263,7 @@ public class Main extends JavaPlugin {
     Metrics metrics = new Metrics(this);
     metrics.addCustomChart(new Metrics.SimplePie("database_enabled", () -> String.valueOf(configPreferences.getOption(ConfigPreferences.Option.DATABASE_ENABLED))));
     metrics.addCustomChart(new Metrics.SimplePie("bungeecord_hooked", () -> String.valueOf(configPreferences.getOption(ConfigPreferences.Option.BUNGEE_ENABLED))));
-    metrics.addCustomChart(new Metrics.SimplePie("locale_used", () -> LanguageManager.getPluginLocale().getPrefix()));
+    //metrics.addCustomChart(new Metrics.SimplePie("locale_used", () -> LanguageManager.getPluginLocale().getPrefix()));
     metrics.addCustomChart(new Metrics.SimplePie("update_notifier", () -> {
       if (getConfig().getBoolean("Update-Notifier.Enabled", true)) {
         if (getConfig().getBoolean("Update-Notifier.Notify-Beta-Versions", true)) {

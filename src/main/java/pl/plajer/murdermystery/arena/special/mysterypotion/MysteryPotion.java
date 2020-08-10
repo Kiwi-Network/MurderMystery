@@ -18,7 +18,9 @@
 
 package pl.plajer.murdermystery.arena.special.mysterypotion;
 
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import pl.plajer.murdermystery.handlers.ChatManager;
 
 /**
  * @author Plajer
@@ -37,12 +39,12 @@ public class MysteryPotion {
     this.potionEffect = potionEffect;
   }
 
-  public String getName() {
-    return name;
+  public String getName(Player player) {
+    return ChatManager.colorMessage_(name,player);
   }
 
-  public String getSubtitle() {
-    return subtitle;
+  public String getSubtitle(Player player) {
+    return ChatManager.colorMessage_(subtitle,player);
   }
 
   public PotionEffect getPotionEffect() {

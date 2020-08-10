@@ -46,6 +46,7 @@ import pl.plajer.murdermystery.utils.services.locale.LocaleService;
  */
 public class LanguageManager {
 
+  /*
   private static Main plugin;
   private static Locale pluginLocale;
   private static Properties properties = new Properties();
@@ -145,42 +146,6 @@ public class LanguageManager {
     return pluginLocale.getName().equals("English");
   }
 
-  public static String getLanguageMessage(String path, String lang) {
-    return ChatManager.colorRawMessage(Main.lang.getString(lang,path));
-  }
-
-    public static String getLanguageMessage(String path, Player player) {
-      return ChatManager.colorRawMessage(Main.lang.getPlayerString(player.getName(),path));
-
-    /*
-    if (isDefaultLanguageUsed()) {
-      return getString(path);
-    }
-    String prop = properties.getProperty(path);
-    if (prop == null) {
-      return getString(path);
-    }
-    return prop;*/
-  }
-  public static List<String> getLanguageList(String path, String lang) {
-    return Arrays.asList(getLanguageMessage(path, lang).split(";"));
-  }
-
-  public static List<String> getLanguageList(String path, Player player) {
-    return Arrays.asList(getLanguageMessage(path,player).split(";"));
-
-    /*
-    if (isDefaultLanguageUsed()) {
-      return getStrings(path);
-    }
-    String prop = properties.getProperty(path);
-    if (prop == null) {
-      //check normal language if nothing found in specific language
-      return getStrings(path);
-    }
-    return Arrays.asList(ChatManager.colorRawMessage(prop).split(";"));*/
-  }
-
 
   private static List<String> getStrings(String path) {
     //check normal language if nothing found in specific language
@@ -212,4 +177,45 @@ public class LanguageManager {
   public static Locale getPluginLocale() {
     return pluginLocale;
   }
+
+  */
+
+  public static String getLanguageMessage(String path, String lang) {
+    return Main.lang.getString(lang,path);
+  }
+
+    public static String getLanguageMessage(String path, Player player) {
+      return Main.lang.getPlayerString(player.getName(),path);
+
+    /*
+    if (isDefaultLanguageUsed()) {
+      return getString(path);
+    }
+    String prop = properties.getProperty(path);
+    if (prop == null) {
+      return getString(path);
+    }
+    return prop;*/
+  }
+
+  public static List<String> getLanguageList(String path, String lang) {
+    return Main.lang.getListString(lang,path);
+  }
+
+  public static List<String> getLanguageList(String path, Player player) {
+    return Main.lang.getPlayerListString(player.getName(),path);
+
+    /*
+    if (isDefaultLanguageUsed()) {
+      return getStrings(path);
+    }
+    String prop = properties.getProperty(path);
+    if (prop == null) {
+      //check normal language if nothing found in specific language
+      return getStrings(path);
+    }
+    return Arrays.asList(ChatManager.colorRawMessage(prop).split(";"));*/
+  }
+
+
 }

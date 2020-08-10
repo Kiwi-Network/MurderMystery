@@ -65,7 +65,7 @@ public class ReloadArgument {
         long start = System.currentTimeMillis();
 
         registry.getPlugin().reloadConfig();
-        LanguageManager.reloadConfig();
+        //LanguageManager.reloadConfig();
 
         for (Arena arena : ArenaRegistry.getArenas()) {
           Debugger.debug(Level.INFO, "[Reloader] Stopping {0} instance.");

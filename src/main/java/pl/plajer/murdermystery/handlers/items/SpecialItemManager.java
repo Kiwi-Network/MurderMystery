@@ -20,6 +20,7 @@ package pl.plajer.murdermystery.handlers.items;
 
 import java.util.HashMap;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -43,12 +44,18 @@ public class SpecialItemManager {
   }
 
   public static String getRelatedSpecialItem(ItemStack itemStack) {
-    for (String key : specialItems.keySet()) {
+
+    if(itemStack.getType()== Material.BED)
+      return "Leave";
+
+    return null;
+
+    /*for (String key : specialItems.keySet()) {
       SpecialItem entityItem = specialItems.get(key);
       if (entityItem.getItemStack().getItemMeta().getDisplayName().equalsIgnoreCase(itemStack.getItemMeta().getDisplayName())) {
         return key;
       }
     }
-    return null;
+    return null;*/
   }
 }

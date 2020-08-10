@@ -1,0 +1,316 @@
+Rank:
+  command:
+    nonExist: "§身份等級不存在"
+    unLogin: "§c玩家 %player% 不在線上"
+  info:
+    addexp1: "§a您獲得了%1%經驗, 距離升級到%2%還差%3%經驗"
+    addexp2: "§a您獲得了%1%經驗, 成功升級到%2%, 距離下一級還差%3%經驗"
+    addexp3: "§a您已經滿級, 無法獲得额外的經驗"
+  inquire: "§a玩家 %1% 當前等級 %2% §a(經驗%3%)"
+  inquireFailed: "§c玩家不存在!"
+  scoreboard:
+    title: "§a§lKiwi §2§lNetwork"
+    list:
+      - §1
+      - "§f身份: %rank%"
+      - "§f等級: %level%"
+      - §2
+      - §el-ee.cn
+Commands:
+  Did-You-Mean: "§6Did you mean §e/%command%§6?"
+  Teleported-To-The-Lobby: "正在返回大廳!"
+  Removed-Game-Instance: "§cSuccessfully removed game instance!"
+  No-Arena-Like-That: "§cNo arena with that ID!"
+  Look-Sign: "§cYou have to look at a sign to perform this command!"
+  Type-Arena-Name: "§cPlease type arena ID!"
+  No-Free-Arenas: "§cThere are no free arenas!"
+  Statistics:
+    Type-Name: "§cPlease type statistic name to view!"
+    Invalid-Name: "§cName of statistic is invalid! Type: kills, deaths, games_played, wins, loses, highest_score"
+    Header: "§8§m-------------------[§6 Top 10 §8§m]-------------------"
+    Format: "§e#%position% %name% - %value% §7%statistic%"
+  Only-By-Player: "§cYou can execute this command only as player!"
+  Not-Playing: "§cYou must play to execute this command!"
+  No-Permission: "§cYou don't have permission to use this command!"
+  Admin-Commands:
+    Teleported-To-Player: "§aTeleported to player!"
+    Player-Not-Found: "§cPlayer not found!"
+    Success-Reload: "§aArenas reloaded!"
+    List-Command:
+      Header: "§aMurder Mystery §6arenas:"
+      Format: "§a%arena% §e%status% §6%players%/%maxplayers%"
+      No-Arenas: "§cThere are no game instances!"
+  Stats-Command:
+    Header: "§l-----您的戰績-----"
+    Header-Other: "§l-----玩家 %player% 的戰績-----"
+    Footer: "§l--------------------"
+    Kills: "§a擊殺: §e"
+    Deaths: "§a死亡: §e"
+    Wins: "§a勝利: §e"
+    Loses: "§a失敗: §e"
+    Highest-Score: "§a最高得分: §e"
+    Games-Played: "§a遊玩次數: §e"
+  Main-Command:
+    Header: "§6----------------{Murder Mystery commands}----------"
+    Description: "§aGame commands:\n
+    §b/mm stats: §7Shows your stats!\n
+    §b/mm leave: §7Quits current arena!\n
+    §b/mm join <arena>: §7Joins specified arena!\n
+    §b/mm top <statistic>: §7Shows top 10 players!\n
+    §b/mm randomjoin: §7Join random arena!"
+    Admin-Bonus-Description: "\n§b/mm admin: §7Shows all the admin commands"
+    Footer: "§6-------------------------------------------------"
+
+# In-game scoreboard messages.
+# Please do not use more than 48 chars here! COLOR CODES INCLUDED.
+Scoreboard:
+  Title: "§4§lMurder Mystery"
+  Detective-Status-Normal: "§f偵探: §eAlive"
+  Detective-Died-No-Bow: "§c弓已掉落"
+  Detective-Died-Bow: "§a弓尚未掉落"
+  Roles:
+    Detective: "§b偵探"
+    Murderer: "§c殺手"
+    Innocent: "§e平民"
+    Dead: "§7已陣亡"
+  Content:
+    # Contents of scoreboard for innocents and detective
+    Playing:
+      - ""
+      - "§f角色: %ROLE%"
+      - ""
+      - "§f剩餘平民: §e%INNOCENTS%"
+      - "§f剩餘時間: §e%FORMATTED_TIME%"
+      - ""
+      - "%DETECTIVE_STATUS%"
+      - ""
+      - "§f得分: §e%SCORE%"
+      - ""
+      - "§el-ee.cn"
+    # Contents of scoreboard for murderer
+    Playing-Murderer:
+      - ""
+      - "§f角色: %ROLE%"
+      - ""
+      - "§f剩餘平民: §e%INNOCENTS%"
+      - "§f剩餘時間: §e%FORMATTED_TIME%"
+      - ""
+      - "%DETECTIVE_STATUS%"
+      - ""
+      - "§f擊殺: §e%KILLS%"
+      - ""
+      - "§f得分: §e%SCORE%"
+      - ""
+      - "§el-ee.cn"
+    Waiting:
+      - ""
+      - "§f玩家: §e%PLAYERS%"
+      - ""
+      - "§f最少玩家: §e%MIN_PLAYERS%"
+      - ""
+      - "§el-ee.cn"
+    Starting:
+      - ""
+      - "§f即將開始: §e%TIME%"
+      - ""
+      - "§f玩家: §e%PLAYERS%"
+      - ""
+      - "§f最少玩家: §e%MIN_PLAYERS%"
+      - ""
+      - "§el-ee.cn"
+
+# Has usage only when bossbar is enabled in config.yml
+Bossbar:
+  Main-Title: "§a§l密室殺手 §6- §aKiwi §2Network"
+  Starting-In: "§f§l在 §e§l%time% §f§l秒後開始"
+  Waiting-For-Players: "§4§l等待更多玩家加入..."
+  In-Game-Info: "§e§l密室殺手 §6- §aKiwi §2Network"
+  Game-Ended: "§c§l遊戲結束!"
+
+In-Game:
+  #Used in most game messages.
+  Plugin-Prefix: "§4[Murder Mystery] §7"
+  Already-Playing: "§c您已經加入一個遊戲了"
+  Join-No-Permission: "§cYou don't have §6%permission% §cpermission to join this arena!"
+  Full-Game-No-Permission: "§c當前遊戲已滿,無法加入!"
+  No-Slots-For-Premium: "§cThis game is already full of premium players! Sorry"
+  You-Are-Spectator: "§c您現在是一個旁觀者了!"
+  Only-Command-Ingame-Is-Leave: "§c您不能在遊戲中使用指令"
+  # Join cancelled via external plugin that uses MM api.
+  Join-Cancelled-Via-API: "§cYou can't join this game!"
+  Join-As-Party-Member: "§cYou joined %ARENANAME% because the party leader joined it!"
+  Arena-Not-Configured: "§cArena is not configured yet! Contact staff!"
+  Game-Chat-Format: "§7%player%: §f%message%"
+  Cooldown-Format: "§8§l[%progress%§8§l] §6%time% 秒"
+  Bow-Locator-Item-Name: "§6追蹤 弓"
+  Innocent-Locator-Item-Name: "§6追蹤 平民"
+  Watch-Out-Title: "§c當心!"
+  Watch-Out-Subtitle: "§e現在殺手可以輕易找到剩餘的平民"
+  Spectator:
+    Spectator-Item-Name: "§7玩家列表"
+    Spectator-Menu-Name: "存活玩家"
+    Target-Player-Role: "§7角色: %ROLE%"
+    Settings-Menu:
+      Item-Name: "§7觀察者設置"
+      Inventory-Name: "§7觀察者設置"
+      Speed-Name: "§a速度"
+  Messages:
+    Lobby-Messages:
+      Start-In: "§7遊戲將在 §b%TIME%§7 秒後開始!"
+      Waiting-For-Players: "§7等待玩家加入, 最少需要 §b%MINPLAYERS%§7."
+      Enough-Players-To-Start: "§7已經達到最小玩家, 遊戲即將開始."
+      Game-Started: "§7遊戲已經開始, 存活到最後!"
+      Kicked-For-Premium-Slot: "§c%PLAYER% got removed from the game to make a place for premium players!"
+      You-Were-Kicked-For-Premium-Slot: "§cYou got kicked out of the game to make a place for a premium player!"
+      Role-Chances-Action-Bar: "§c成為殺手概率: %murderer_chance% §a- §b成為偵探概率: %detective_chance%"
+      Not-Enough-Space-For-Party: "§cYour party is bigger than free places on the arena %ARENANAME%"
+    Join: "§b%PLAYER% §7加入了遊戲 (%PLAYERSIZE%/%MAXPLAYERS%)!"
+    Leave: "§b%PLAYER% §7離開了遊戲 (%PLAYERSIZE%/%MAXPLAYERS%)!"
+    Death: "§b%PLAYER% §7死了!"
+    Seconds-Left-Title: "§e剩餘 §c%time% §e秒"
+    Seconds-Left-Subtitle: "§e殺手將在 %time% 秒後失敗"
+    Role-Set:
+      Murderer-Title: "§c角色: 殺手"
+      Murderer-Subtitle: "§e殺死全部玩家!"
+      Detective-Title: "§b角色: 偵探"
+      Detective-Subtitle: "§e找到並殺死殺手!"
+      Innocent-Title: "§e角色: 平民"
+      Innocent-Subtitle: "§e找到弓並存活更長時間!"
+    Bonus-Score: "§e+%score% 得分 (%action%)"
+    Score-Actions:
+      Kill-Player: "殺死玩家"
+      Kill-Murderer: "殺死殺死"
+      Gold-Pickup: "撿起金錠"
+      Survive: "存活 30 秒"
+      #for innocents
+      Survive-Till-End: "存活到了最後"
+      #for murderer or detective
+      Win-Game: "贏得遊戲"
+      Detective-Reward: "保護了 %amount% 名平民"
+      Innocent-Kill: "殺死平民"
+    Picked-Up-Gold: "§e撿起金頂!"
+    Previous-Role-Left-Title: "§c舊的 %role% 離開了遊戲!"
+    Previous-Role-Left-Subtitle: "§c正在選擇新的 %role%!"
+    Corpse-Last-Words: "§7%player%§e 的臨終遺言:"
+    Murderer-Get-Sword: "§e殺手將在 §c%time% §e秒後拿到他們的劍!"
+    Special-Blocks:
+      Cauldron-Drink-Potion: "§c您背包中已經有一瓶藥水了!"
+      Not-Enough-Gold: "§c您需要 %amount% 金錠來夠買!"
+      Cauldron-Hologram: "§f神秘藥水 - 1 §e金錠"
+      Praise-Hologram: "§e拉下拉杆向神明祈禱"
+      Prayed-Message: "§a您向神秘祈禱了, 希望他們能夠聽到!"
+      No-Money-No-Pray: "§c您需要金錠來祈禱!"
+      Praises:
+        Message:
+          - ""
+          - "§7神秘聽到了您的祈禱"
+          - "%feeling%"
+          - "%praise%"
+        Feelings:
+          Blessed: "§a您感受到了祝福."
+          Cursed: "§c您感受到了詛咒."
+        Gifts:
+          Detective-Revelation: "§a您現在知道 §b當前的偵探 §a是 %detective%"
+          Gold-Rush: "§a您獲得了古老力量的幫助, 現在每當您撿起一個金錠, 您會獲得三個."
+          Single-Compensation: "§a神秘獎勵了您5個金錠!"
+          Bow-Time: "§a神秘獎勵了您一把弓!"
+        Curses:
+          Slowness-Curse: "§c您的腿變得更沉重了."
+          Blindness-Curse: "§c您的眼睛開始看不清楚了."
+          Gold-Ban: "§c您不能再撿起任何金錠了!"
+          Incoming-Death: "§c一股壓倒性的力量讓您死亡, 您將在一分鐘內結束生命!"
+    Bow-Messages:
+      Bow-Dropped-Title: "§6弓已掉落!"
+      Bow-Dropped-Subtitle: "§e找到弓 你會有機會殺死殺手."
+      Pickup-Bow-Message: "§e一位玩家撿到了弓!"
+      Bow-Shot-For-Gold: "§a+1 箭!"
+      Bow-Shot-Subtitle: "§e你收集了10個金錠並獲得一根額外的箭"
+    Last-Words:
+      Default: "§f請讓我重生 :("
+      Meme: "§f神確認了 §oDespacito 2"
+      Rage: "§f為什麼你要殺我?!!?"
+      Pro: "§f我卡了..."
+    Game-End-Messages:
+      Titles:
+        Win: "§a你獲勝了!"
+        Lose: "§c你失敗了!"
+        Died: "§c你陣亡了!"
+      Subtitles:
+        Murderer-Stopped: "§6殺手已被阻止!"
+        Murderer-Kill-Everyone: "§6殺手殺了所有人."
+        Murderer-Killed-You: "§e殺手殺死了你!"
+        Player-Killed-You: "§c一位玩家用弓殺死了你!"
+        Killed-Innocent: "§e你殺死了無辜的平民!"
+      Winners:
+        Players: "§e平民與偵探"
+        Murderer: "§c殺手"
+        Nobody: "§7沒有人"
+      Summary-Message:
+        - "§a§m------------------------------------------------------------------"
+        - "§4§l密室殺手"
+        - ""
+        - "§f§l勝利者: %winner%"
+        - ""
+        - "§7偵探: %detective%"
+        - "§7殺手: %murderer%"
+        - "§7英雄: %hero%"
+        - ""
+        - "§a§m------------------------------------------------------------------"
+    Admin-Messages:
+      Set-Starting-In-To-0: "§bAn admin set waiting time to 0. The game starts now!"
+
+Signs:
+  Please-Type-Arena-Name: "§cPlease type arena name in second line!"
+  Arena-Doesnt-Exists: "§cArena with that name doesn't exists!"
+  Sign-Created: "§aSign created successfully!"
+  Sign-Removed: "§aSign successfully removed!"
+  Game-States:
+    Inactive: "§a§l可以進入"
+    In-Game: "§l遊戲中"
+    Starting: "§e§l遊戲開始中"
+    Full-Game: "§4§l已滿"
+    Ending: "§l遊戲結束"
+    Restarting: "§c§l重啟中"
+  Lines:
+    - "§4§lMurder Mystery"
+    - "%state%"
+    - "%mapname%"
+    - "§5[%playersize%/%maxplayers%]"
+
+Leaderheads:
+  #top command from leaderheads ex. mmtopkills
+  Top-Command-Name: "mmtop%stat%"
+  Top-Command-Inv-Title: "§bTop users"
+  Leaderboard-Value:
+    Kills: "§e{amount} kills"
+    Deaths: "§e{amount} deaths"
+    Games-Played: "§e{amount} games played"
+    Highest-Score: "§e{amount} highest score"
+    Wins: "§e{amount} wins"
+    Loses: "§e{amount} loses"
+
+Validator:
+  Invalid-Arena-Configuration: "[Murder Mystery] Arena %arena% has invalid configuration! Missing node: %error%"
+  Instance-Started: "[Murder Mystery] Arena %arena% instance successfully started!"
+  No-Instances-Created: "[Murder Mystery] There are no arena instances created in configuration!"
+
+Potions:
+  Speed-I:
+    Name: "&a速度藥水"
+    SubTitle: "&710秒的速度效果"
+  Mystery-I:
+    Name: "&a跳躍提升藥水"
+    SubTitle: "&720秒的跳躍提升效果"
+  Mystery-II:
+    Name: "&a緩慢藥水"
+    SubTitle: "&710秒的緩慢效果"
+  Mystery-III:
+    Name: "&a隱身藥水"
+    SubTitle: "&7這瓶藥水將會使你獲得隱身效果!"
+  m:
+    Name: "&a???神秘藥水???"
+    SubTitle: "&7這是一瓶藥水, 天知道它會給你什麼效果."
+  
+LobbyItem:
+  Name: "&c&l返回大廳 &7(右鍵點擊)"
+  Lore: "&7右鍵來離開並回到大廳"

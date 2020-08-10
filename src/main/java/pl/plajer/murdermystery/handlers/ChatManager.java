@@ -18,6 +18,7 @@
 
 package pl.plajer.murdermystery.handlers;
 
+import ee.winni.plugins.languageslib.LLB;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
@@ -39,16 +40,21 @@ public class ChatManager {
   private static Main plugin;
 
   public ChatManager(String prefix, Main plugin) {
-    PLUGIN_PREFIX = prefix;
+    PLUGIN_PREFIX = colorRawMessage(prefix);
     ChatManager.plugin = plugin;
   }
 
   public static String colorRawMessage(String message) {
-    return ChatColor.translateAlternateColorCodes('&', message);
+    return message.replace("&","\u00a7");
+  }
+
+  //慎用
+  public static String colorMessage(String message) {
+    return colorMessage(message,"chinese");
   }
 
   public static String colorMessage_(String message, Player player) {
-      return ChatColor.translateAlternateColorCodes('&', LanguageManager.getLanguageMessage(message,player));
+      return colorRawMessage(LanguageManager.getLanguageMessage(message,player));
   }
 
   public static String colorMessage(String message, Player player) {
@@ -90,7 +96,7 @@ public class ChatManager {
 
   public static String formatMessage(Arena arena, String message, Player player) {
     String returnString = message;
-    returnString = StringUtils.replace(returnString, "%PLAYER%", player.getName());
+    returnString = StringUtils.replace(returnString, "%PLAYER%", player.getDisplayName());
     returnString = colorRawMessage(formatPlaceholders(returnString, arena));
     if (plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
       returnString = PlaceholderAPI.setPlaceholders(player, returnString);
@@ -113,19 +119,19 @@ public class ChatManager {
     String message;
     switch (action) {
       case JOIN:
-        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Join",p), p);
+        message = "In-Game.Messages.Join";
         break;
       case LEAVE:
-        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Leave",p), p);
+        message = "In-Game.Messages.Leave";
         break;
       case DEATH:
-        message = formatMessage(a, ChatManager.colorMessage_("In-Game.Messages.Death",p), p);
+        message = "In-Game.Messages.Death";
         break;
       default:
         return; //likely won't ever happen
     }
     for (Player player : a.getPlayers()) {
-      player.sendMessage(PLUGIN_PREFIX + message);
+      player.sendMessage(PLUGIN_PREFIX + formatMessage(a, ChatManager.colorMessage_(message,player), p));
     }
   }
 
